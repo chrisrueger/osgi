@@ -735,7 +735,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 		String name = testName.getMethodName();
 		Description description = descriptions.get(name);
 		assertThat(description).as("component %s", name)
-				.hasNamespace(xmlns_scr140)
+				.hasNamespace(xmlns_scr130)
 				.hasValue("implementation/@class",
 						"org.osgi.impl.bundle.component.annotations."
 								+ name.substring(4))
@@ -750,7 +750,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 		String name = testName.getMethodName();
 		Description description = descriptions.get(name);
 		assertThat(description).as("component %s", name)
-				.hasNamespace(xmlns_scr140)
+				.hasNamespace(xmlns_scr130)
 				.hasValue("implementation/@class",
 						"org.osgi.impl.bundle.component.annotations."
 								+ name.substring(4))
@@ -779,7 +779,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 		String name = testName.getMethodName();
 		Description description = descriptions.get(name);
 		assertThat(description).as("component %s", name)
-				.hasNamespace(xmlns_scr140)
+				.hasNamespace(xmlns_scr130)
 				.hasValue("implementation/@class",
 						"org.osgi.impl.bundle.component.annotations."
 								+ name.substring(4))
@@ -795,7 +795,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 		String name = testName.getMethodName();
 		Description description = descriptions.get(name);
 		assertThat(description).as("component %s", name)
-				.hasNamespace(xmlns_scr140)
+				.hasNamespace(xmlns_scr130)
 				.hasValue("implementation/@class",
 						"org.osgi.impl.bundle.component.annotations.ConstructorStaticInnerClass$InnerComponent")
 				.hasCount("implementation", 1)
