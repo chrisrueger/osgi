@@ -817,4 +817,36 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 				// Constructor injection with Map parameter
 				.hasValue("@init", "1");
 	}
+
+	@Test
+	public void testConstructorPackagePrivate() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				// This is invalid but bnd will process it
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorPrivate() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				// This is invalid but bnd will process it
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
 }
