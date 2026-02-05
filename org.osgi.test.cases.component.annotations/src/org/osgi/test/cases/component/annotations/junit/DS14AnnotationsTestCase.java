@@ -828,8 +828,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 						"org.osgi.impl.bundle.component.annotations."
 								+ name.substring(4))
 				.hasCount("implementation", 1)
-				// No @init attribute means no constructor injection
-				// This is invalid but bnd will process it
+				// Invalid: package-private constructor, but bnd processes it
 				.doesNotContain("@init")
 				.doesNotContain("reference/@parameter");
 	}
@@ -844,8 +843,7 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 						"org.osgi.impl.bundle.component.annotations."
 								+ name.substring(4))
 				.hasCount("implementation", 1)
-				// No @init attribute means no constructor injection
-				// This is invalid but bnd will process it
+				// Invalid: private constructor, but bnd processes it
 				.doesNotContain("@init")
 				.doesNotContain("reference/@parameter");
 	}
