@@ -729,4 +729,122 @@ public class DS14AnnotationsTestCase extends AnnotationsTestCase {
 
 		;
 	}
+
+	@Test
+	public void testConstructorImplicitNoArg() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorExplicitNoArg() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorActivateAnnotation() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr140)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// Constructor injection with BundleContext parameter
+				.hasValue("@init", "1");
+	}
+
+	@Test
+	public void testConstructorMultipleWithNoArg() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				// DS uses the no-arg constructor
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorStaticInnerClass() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations.ConstructorStaticInnerClass$InnerComponent")
+				.hasCount("implementation", 1)
+				// No @init attribute means no constructor injection
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorOverloadedSameParams() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr140)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// Constructor injection with Map parameter
+				.hasValue("@init", "1");
+	}
+
+	@Test
+	public void testConstructorPackagePrivate() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// Invalid: package-private constructor, but bnd processes it
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
+
+	@Test
+	public void testConstructorPrivate() throws Exception {
+		String name = testName.getMethodName();
+		Description description = descriptions.get(name);
+		assertThat(description).as("component %s", name)
+				.hasNamespace(xmlns_scr130)
+				.hasValue("implementation/@class",
+						"org.osgi.impl.bundle.component.annotations."
+								+ name.substring(4))
+				.hasCount("implementation", 1)
+				// Invalid: private constructor, but bnd processes it
+				.doesNotContain("@init")
+				.doesNotContain("reference/@parameter");
+	}
 }
